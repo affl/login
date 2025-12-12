@@ -37,7 +37,6 @@
                     <?php endif; ?>
 
                     <form action="login.php" method="post">
-
                         <!-- Correo -->
                         <div class="mb-3">
                             <label for="user" class="form-label">Correo electrónico</label>
@@ -48,8 +47,7 @@
                                 class="form-control" 
                                 placeholder="tu@correo.com"
                                 value="<?= htmlspecialchars($old_user) ?>"
-                                required
-                            >
+                                required>
                         </div>
 
                         <!-- Contraseña -->
@@ -61,8 +59,7 @@
                                 name="password" 
                                 class="form-control" 
                                 placeholder="••••••••" 
-                                required
-                            >
+                                required>
                         </div>
 
                         <div class="mb-3 form-check">
@@ -79,6 +76,9 @@
                             </button>
                         </div>
 
+                        <div class="mt-3 text-center">
+                            <a href="register.php">¿No tienes cuenta? Crear una nueva</a>
+                        </div>
                     </form>
 
                 </div>

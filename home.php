@@ -4,7 +4,8 @@
     require_once __DIR__ . '/app/user.php';
     require_once __DIR__ . '/app/helpers.php';
 
-    authRequired(); // protege la página
+    //requireRole('admin'); // obliga a estar logueado y además ser admin
+    requireRole(['admin', 'user', 'dummy']);
 
     $user = getUserById($_SESSION['user_id']);
 ?>
@@ -13,9 +14,16 @@
 
         <div class="p-5 bg-light">
             <h1 class="display-3">Bienvenido</h1>
-            <p class="lead">Este es un portafolio de <strong><?= htmlspecialchars(fullName($user)); ?></strong> [<?= $user['role_name'];?>]</p>
+            <p class="lead">Este es un portafolio de <strong><?= htmlspecialchars(fullName($user)); ?></strong> <span class="fw-bold">[<?= $user['role_description'];?>]</span></p>
             <hr class="my-2">
             <p>Más información</p>
+
+            <ul>
+                <?php if (userHasRole(['admin', 'coordinator'])): ?>
+                    <li><a href="#.php">Reportes</a></li>
+                <?php endif; ?>
+            </ul>
+
         </div>
 
     </div>

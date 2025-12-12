@@ -5,7 +5,7 @@
     {
         $conn = getConnection();
 
-        $sql = "SELECT u.*, r.name AS role_name
+        $sql = "SELECT u.*, r.name AS role_name, r.description AS role_description
                 FROM users u
                 LEFT JOIN roles r ON u.role_id = r.id
                 WHERE u.id = :id
@@ -29,4 +29,17 @@
 
         $stmt = $conn->query($sql);
         return $stmt->fetchAll();
+    }
+    
+    function currentUser(): ?array
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (empty($_SESSION['user_id'])) {
+            return null;
+        }
+
+        return getUserById((int) $_SESSION['user_id']);
     }

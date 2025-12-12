@@ -14,7 +14,7 @@
     $remember = !empty($_POST['remember']);
 
     // Buscar usuario
-    $sql = "SELECT id, email, password, remember_token_hash, remember_token_expires_at
+    $sql = "SELECT id, email, password, status, remember_token_hash, remember_token_expires_at
             FROM users
             WHERE email = :user
             LIMIT 1";
@@ -35,6 +35,12 @@
         redirect('index.php');
     }
 
+    if ($userDB['status'] === 'inactive') {
+        $_SESSION['error'] = 'Tu cuenta está dada de baja. Contacta al administrador.';
+        $_SESSION['old_user'] = $user;
+        redirect('index.php');
+    }
+    
     // Login correcto
     $_SESSION['user_id'] = $userDB['id'];
 
